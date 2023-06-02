@@ -15,18 +15,18 @@ use App\Http\Controllers\ProdutosController;
 */
 
 Route::get('/', function () {
-    return view('produtos.create');
+    
 });
 
 
 // Rotas para o CRUD de produtos
-Route::get("/produtos", [ProdutosController::class, "index"]);
-Route::get("/produtos/create", [ProdutosController::class, "create"]);
-Route::post("/produtos", [ProdutosController::class, "store"]);
-Route::get("/produtos/{id}", [ProdutosController::class, "show"]);
-Route::get("/produtos/{id}/edit", [ProdutosController::class, "edit"]);
-Route::put("/produtos/{id}", [ProdutosController::class, "update"]);
-Route::delete("/produtos/{id}", [ProdutosController::class, "destroy"]);
+Route::get('/produtos', [ProdutosController::class, 'index'])->name('produtos.index');
+Route::get('/produtos/create', [ProdutosController::class, 'create'])->name('produtos.create');
+Route::post('/produtos', [ProdutosController::class, 'store'])->name('produtos.store');
+Route::get('/produtos/{id}', [ProdutosController::class, 'show'])->name('produtos.show');
+Route::get('/produtos/{id}/edit', [ProdutosController::class, 'edit'])->name('produtos.edit');
+Route::put('/produtos/{id}', [ProdutosController::class, 'update'])->name('produtos.update');
+Route::delete('/produtos/{id}', [ProdutosController::class, 'destroy'])->name('produtos.destroy');
 
 // Rotas para o CRUD de Usuario
 

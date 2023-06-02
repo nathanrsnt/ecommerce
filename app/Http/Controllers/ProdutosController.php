@@ -8,7 +8,8 @@ use Illuminate\Http\Request;
 class ProdutosController extends Controller
 {
     public function index() {
-        return view('produtos.index');
+        $produtos = Produto::all();
+        return view('produtos.index', ['produtos' => $produtos]);
     }
 
     public function create() {
@@ -16,7 +17,13 @@ class ProdutosController extends Controller
     }
 
     public function show($id) {
-        return view('produtos.show', ['id' => $id]);
+        $produto = Produto::findOrFail($id);
+
+        if(isset($produto)) {
+            return view('produtos.show', ['produto' => $produto]);
+        } else {
+            return redirect()->route('produtos.index')->with('msg', 'Produto não encontrado!');
+        }
     }
 
     public function edit($id) {
@@ -48,10 +55,29 @@ class ProdutosController extends Controller
     }
 
     public function update(Request $request, $id) {
+        $produto = Produto::findOrFail($id);
+
+        $produto->nome = $request->nome;
+        $produto->descricao = $request->descricao;
+        $produto->preco = $request->preco;
+        $produto->quantidade = $request->quantidade;
+        $produto->imagem = $request->imagem;
+
+        if ($request->hasfile('image') && $request->file('image')->isValid()) {
+            $requestImage = $request->image;
+            $extension = $requestImage->extension();
+            $imageName = md5($requestImage->getClientOriginalName() . strtotime("now")) . "." . $extension;
+            $requestImage->move(public_path('img/produtos'), $imageName);
+            $produto->imagem = $imageName;
+        }
+
+        $produto->update();
+      
         return redirect()->route('produtos.show', ['id' => $id]);
     }
 
     public function destroy($id) {
-        return redirect()->route('produtos.index');
+        Produto::findOrFail($id)->delete();
+        return redirect()->route('produtos.index')->with('msg', 'Produto excluído com sucesso!');
     }
 }

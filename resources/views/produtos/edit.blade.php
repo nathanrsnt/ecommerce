@@ -1,18 +1,20 @@
 @extends('layouts.main')
 
-@section('title', 'Novo Produto')
+@section('title', 'Editar Produto')
 
 @section('content')
+
     <div class="container">
-    <div class="row">
+        <div class="row">
             <div class="col">
                 <h1>Editar Produto</h1>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-4">
-                <form action="{{ route('produtos.store') }}" method="post">
+                <form action="{{ route('produtos.update', $id) }}" method="post">
                     @csrf
+                    @method('PUT')
                     <label for="">Nome do Produto</label>
                     <input type="text" name="nome" id="nome">
                     <label for="">Descrição</label>
