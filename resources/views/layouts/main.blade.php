@@ -11,7 +11,7 @@
   </head>
   <body>
     
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark " style="background-color: #9B349D;">
       <div class="container-fluid">
         <a class="navbar-brand" href="#">KN Shop</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,10 +36,13 @@
                 <li><a class="dropdown-item" href="#">Vendedores</a></li>
               </ul>
             </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="">Relatórios</a>
+            </li>
           </ul>
           <form class="d-flex">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Pesquisar</button>
+            <button class="btn btn-outline-success me-2" type="submit">Login</button>
+            <button class="btn btn-outline-success" type="submit">Sing up</button>
           </form>
         </div>
       </div>

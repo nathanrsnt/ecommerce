@@ -4,27 +4,29 @@
 
 @section('content')
     <div class="container">
-    <div class="row">
-            <div class="col">
-                <h1>Editar Produto</h1>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-4">
-                <form action="{{ route('produtos.store') }}" method="post">
-                    @csrf
-                    <label for="">Nome do Produto</label>
-                    <input type="text" name="nome" id="nome">
-                    <label for="">Descrição</label>
-                    <input type="text" name="descricao" id="descricao">
-                    <label for="">Preço</label>
-                    <input type="text" name="preco" id="preco">
-                    <label for="">Quantidade</label>
-                    <input type="text" name="quantidade" id="quantidade">
-                    <label for="">Imagem</label>
-                    <input type="text" name="imagem" id="imagem">
-                    <input type="submit" value="Salvar">
-                </form>
+        <div class="cel d-flex justify-content-center text-center">
+            <div class="card col-lg-6 mt-3">
+                <div class="card-body">
+                    <div class="col">
+                        <h1>Criar Produto</h1>
+                        <div class="col-lg-8 mx-auto">
+                            <form action="{{ route('produtos.store') }}" method="post">
+                                @csrf
+                                <label for=""></label>
+                                <input class="form-control" type="text" name="nome" id="nome" placeholder="Nome do Produto">
+                                <label for=""></label>
+                                <input class="form-control" type="text" name="descricao" id="descricao" placeholder="Descrição do Produto">
+                                <label for=""></label>
+                                <input class="form-control" type="number" name="preco" id="preco" placeholder="Preço">
+                                <label for=""></label>
+                                <input class="form-control" type="number" name="quantidade" id="quantidade" placeholder="Quantidade">
+                                <label for=""></label>
+                                <input class="form-control" type="file" name="imagem" id="imagem" placeholder="Imagem">
+                                <input class="btn btn-success mt-3" type="submit" value="Salvar">
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

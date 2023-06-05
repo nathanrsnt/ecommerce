@@ -14,24 +14,22 @@
         </div>
         <div class="row">
         @foreach ($produtos as $produto)
-            <div class="card col-lg-4">
+            <div class="card col-lg-4 mt-2">
                 <div class="card-body"> 
-                    <div class="col-lg-8">
-                        <div class="row">
-                            <h1>{{ $produto->nome }}</h1>
-                            <p>{{ $produto->descricao }}</p>
-                            <div class="col-lg-4">
-                                <div class="btn-group">
-                                    <a href="{{ route('produtos.show', $produto->id) }}" class="btn btn-primary mr-2">Detalhes</a>
-                                    <a href="{{ route('produtos.edit', $produto->id) }}" class="btn btn-warning mr-2">Editar</a>
-                                    <form action="{{ route('produtos.destroy', $produto->id) }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger mr-2">Excluir</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
+                    <h1>{{ $produto->nome }}</h1>
+                    <p>{{ $produto->descricao }}</p>
+                    <p>R$ {{ $produto->preco }}</p>
+                    <div class="col-lg-2">
+                        <img src="" alt="" class="img-fluid">
+                    </div>
+                    <div class="d-flex mx-auto">
+                        <a href="{{ route('produtos.show', $produto->id) }}" class="btn btn-primary me-2">Detalhes</a>
+                        <a href="{{ route('produtos.edit', $produto->id) }}" class="btn btn-warning me-2">Editar</a>
+                        <form action="{{ route('produtos.destroy', $produto->id) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger me-2">Excluir</button>
+                        </form>
                     </div>
                 </div>
             </div>
