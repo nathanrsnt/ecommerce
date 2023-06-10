@@ -40,10 +40,17 @@
               <a class="nav-link active" aria-current="page" href="">Relatórios</a>
             </li>
           </ul>
-          <form class="d-flex">
-            <button class="btn btn-outline-success me-2" type="submit">Login</button>
-            <button class="btn btn-outline-success" type="submit">Sing up</button>
-          </form>
+          @auth
+          <div class="d-fles">
+            <a href="" class="btn btn-success me-2">Perfil</a>
+          </div>
+          @endauth
+          @guest
+          <div class="d-flex">
+            <a href="/login" class="btn btn-success me-2">Login</a>
+            <a href="/register" class="btn btn-warning">Sing up</a>
+          </div>
+          @endguest
         </div>
       </div>
     </nav>

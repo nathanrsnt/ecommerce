@@ -64,3 +64,13 @@ Route::put('/fornecedor/{id}', [FornecedorController::class, 'update'])->name('f
 Route::delete('/fornecedor/{id}', [FornecedorController::class, 'destroy'])->name('fornecedor.destroy');
 
 // Rotas para o CRUD de Usuario
+
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified'
+])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+});
