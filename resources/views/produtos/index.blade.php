@@ -5,35 +5,38 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col">
-                <h1>Produtos</h1>
+            <div class="col-lg-6">
+                <h1 class="" style="color: #9B349D; font-weight: bold">Seus Produtos</h1>
             </div>
-            <div class="col-lg-2">
-                <a href="{{ route('produtos.create') }}" class="btn btn-primary">Novo Produto</a>
+            <div class="col-lg-6 text-end">
+                <a href="{{ route('produtos.create') }}" class="btn mt-2 mb-2" style="background-color: #F5DB00; color: white; font-weight: bold;"><i class="fa-solid fa-plus"></i></a>
             </div>
-        </div>
-        <div class="row">
-        @foreach ($produtos as $produto)
-            <div class="card col-lg-4 mt-2">
-                <div class="card-body"> 
-                    <h1>{{ $produto->nome }}</h1>
-                    <p>{{ $produto->descricao }}</p>
-                    <p>R$ {{ $produto->preco }}</p>
-                    <div class="col-lg-2">
-                        <img src="" alt="" class="img-fluid">
-                    </div>
-                    <div class="d-flex mx-auto">
-                        <a href="{{ route('produtos.show', $produto->id) }}" class="btn btn-primary me-2">Detalhes</a>
-                        <a href="{{ route('produtos.edit', $produto->id) }}" class="btn btn-warning me-2">Editar</a>
-                        <form action="{{ route('produtos.destroy', $produto->id) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger me-2">Excluir</button>
-                        </form>
+            @if($produtos->count() == 0)
+            <h2 class="text-center mt-5" style="color: black; font-weight: bold">Você ainda não possui produtos cadastrados</h2>
+            @else
+            @foreach ($produtos as $produto)
+            <div class="col-md-4 mt-2">
+                <div class="card mb-3"> 
+                    <img src="/img/produtos/{{ $produto->imagem }}" class="card-img-top" width="300" height="400" alt="{{ $produto->nome }}">
+                    <h2 class="text-center" style="color: #9B349D;">{{ $produto->nome }}</h2>
+                    <div class="card-body">
+                        <p class="card-text">Descrição: {{ $produto->descricao }}</p>
+                        <p class="card-text">Categoria: {{ $produto->categoria }}</p>
+                        <p class="card-text text-center" style="font-weight: bold;">R$ {{ $produto->preco }}</p>
+                        <div class="text-center">
+                            <a href="{{ route('produtos.show', $produto->id) }}" class="btn d-inline-block me-2" style="background-color: #F5DB00; color: white; font-family: bold;"><i class="fa-solid fa-eye"></i></a>
+                            <a href="{{ route('produtos.edit', $produto->id) }}" class="btn d-inline-block me-2" style="background-color: #F5DB00; color: white; font-family: bold;"><i class="fa-solid fa-pen-to-square"></i></a>
+                            <form action="{{ route('produtos.destroy', $produto->id) }}" method="POST" class="d-inline-block">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn" style="background-color: #F5DB00; color: white; font-family: bold;"><i class="fa-solid fa-trash-can"></i></button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
-        @endforeach
-        </div>
+            @endforeach
+            @endif
+        </div>  
     </div>
 @endsection

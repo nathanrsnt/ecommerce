@@ -6,54 +6,80 @@
     <title>@yield('title')</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/6aa92d4619.js" crossorigin="anonymous"></script>
   </head>
   <body>
-    
-    <nav class="navbar navbar-expand-lg navbar-dark " style="background-color: #9B349D;">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">KN Shop</a>
+  <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #9B349D;">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#"><img src="/img/logo.png" width="65px" height="35px" title="logo"></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="">Home</a>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                CRUDs
-              </a>
-              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="{{ route('produtos.index') }}">Produtos</a></li>
-                <li><a class="dropdown-item" href="#">Clientes</a></li>
-                <li><a class="dropdown-item" href="#">Fornecedores</a></li>
-                <li><a class="dropdown-item" href="#">Usuarios</a></li>
-                <li><a class="dropdown-item" href="#">Pedidos</a></li>
-                <li><a class="dropdown-item" href="#">Compradores</a></li>
-                <li><a class="dropdown-item" href="#">Vendedores</a></li>
-              </ul>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="">Relatórios</a>
-            </li>
-          </ul>
-          @auth
-          <div class="d-fles">
-            <a href="" class="btn btn-success me-2">Perfil</a>
-          </div>
-          @endauth
-          @guest
-          <div class="d-flex">
-            <a href="/login" class="btn btn-success me-2">Login</a>
-            <a href="/register" class="btn btn-warning">Sing up</a>
-          </div>
-          @endguest
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{{route('home') }}">Home</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownVendas" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Vendas
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownVendas">
+                        <li><a class="dropdown-item" href="#">Pedidos de Venda</a></li>
+                        <li><a class="dropdown-item" href="#">Clientes</a></li>
+                        <li><a class="dropdown-item" href="{{ route('fornecedores.index') }}">Fornecedores</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCompras" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Compras
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownCompras">
+                        <li><a class="dropdown-item" href="{{ route('pedidos.index')}}">Pedidos de Compra</a></li>
+                        <li><a class="dropdown-item" href="{{ route('produtos.index') }}">Produtos</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a a class="nav-link dropdown-toggle" href="#" id="navbarDropdownVendas" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Relatórios
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownVendas">
+                        <li><a class="dropdown-item" href="#">Relatório de Vendas</a></li>
+                        <li><a class="dropdown-item" href="#">Relatório de Compras</a></li>
+                        <li><a class="dropdown-item" href="#">Relatório de Estoque</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="collapse navbar-collapse pesquisa-input" id="navbarSupportedContent">
+                <form class="d-flex" action="/search" method="GET">
+                    <input type="text" class="form-control col-lg-12" placeholder="Pesquisar" name="query">
+                    <button class="btn" type="submit" style="color: white;"><i class="fas fa-search"></i></button>
+                </form>
+            </div>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item me-2">
+                    <a href="" class="btn" style=" color: #F5DB00;"><i class="fa-solid fa-cart-shopping"></i></a>
+                </li>
+                @auth
+                <li class="nav-item">
+                    <a href="" class="btn btn-success me-2">Perfil</a>
+                </li>
+                @endauth
+                @guest
+                <li class="nav-item">
+                    <a href="/login" class="btn btn-outline me-2" style="color:white;">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/register" class="btn" style="background-color: white; color: #9B349D;">Sign Up</a>
+                </li>
+                @endguest
+            </ul>
         </div>
-      </div>
-    </nav>
+    </div>
+</nav>
+
     <div class="container py-3">
         @yield('content')
     </div>

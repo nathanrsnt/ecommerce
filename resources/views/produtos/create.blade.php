@@ -8,21 +8,24 @@
             <div class="card col-lg-6 mt-3">
                 <div class="card-body">
                     <div class="col">
-                        <h1>Criar Produto</h1>
+                        <h1 style="color: #9B349D; font-weight: bold;">Novo Produto</h1>
                         <div class="col-lg-8 mx-auto">
-                            <form action="{{ route('produtos.store') }}" method="post">
+                            <form action="{{ route('produtos.store') }}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 <label for=""></label>
                                 <input class="form-control" type="text" name="nome" id="nome" placeholder="Nome do Produto">
                                 <label for=""></label>
                                 <input class="form-control" type="text" name="descricao" id="descricao" placeholder="Descrição do Produto">
                                 <label for=""></label>
-                                <input class="form-control" type="number" name="preco" id="preco" placeholder="Preço">
+                                <input class="form-control" type="text" name="categoria" id="categoria" placeholder="Categoria do Produto">
+                                <label for=""></label>
+                                <input class="form-control" type="text" name="preco" id="preco" placeholder="Preço">
                                 <label for=""></label>
                                 <input class="form-control" type="number" name="quantidade" id="quantidade" placeholder="Quantidade">
-                                <label for=""></label>
+                                <label for="imagem"></label>
                                 <input class="form-control" type="file" name="imagem" id="imagem" placeholder="Imagem">
-                                <input class="btn btn-success mt-3" type="submit" value="Salvar">
+                                <button class="btn mt-3" type="submit" style="background-color: #9B349D; color: white;">Salvar</button>
+                                <a href="{{ route('produtos.index') }}" class="btn mt-3">Voltar</a>
                             </form>
                         </div>
                     </div>
