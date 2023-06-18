@@ -7,9 +7,16 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/test.css') }}">
+    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/6aa92d4619.js" crossorigin="anonymous"></script>
-  </head>
+    <style> 
+        .pesquisa-input {
+            width: 1000px;
+        }
+    </style>
+</head>
   <body>
   <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #9B349D;">
     <div class="container-fluid">
@@ -27,8 +34,9 @@
                         Vendas
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownVendas">
-                        <li><a class="dropdown-item" href="#">Pedidos de Venda</a></li>
-                        <li><a class="dropdown-item" href="#">Clientes</a></li>
+                        <li><a class="dropdown-item" href="#">Minhas Venda</a></li>
+                        <li><a class="dropdown-item" href="#">Compradores</a></li>
+                        <li><a class="dropdown-item" href="{{ route('produtos.index') }}">Produtos</a></li>
                         <li><a class="dropdown-item" href="{{ route('fornecedores.index') }}">Fornecedores</a></li>
                     </ul>
                 </li>
@@ -37,8 +45,7 @@
                         Compras
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownCompras">
-                        <li><a class="dropdown-item" href="{{ route('pedidos.index')}}">Pedidos de Compra</a></li>
-                        <li><a class="dropdown-item" href="{{ route('produtos.index') }}">Produtos</a></li>
+                        <li><a class="dropdown-item" href="{{ route('pedidos.index')}}">Minhas Compra</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -52,19 +59,27 @@
                     </ul>
                 </li>
             </ul>
-            <div class="collapse navbar-collapse pesquisa-input" id="navbarSupportedContent">
-                <form class="d-flex" action="/search" method="GET">
-                    <input type="text" class="form-control col-lg-12" placeholder="Pesquisar" name="query">
-                    <button class="btn" type="submit" style="color: white;"><i class="fas fa-search"></i></button>
-                </form>
-            </div>
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item me-auto pesquisa-input" id="navbarSupportedContent">
+                    <form class="d-flex" action="/search" method="GET">
+                        <input type="text" class="form-control col-lg-12" placeholder="Pesquisar" name="query">
+                        <button class="btn" type="submit" style="color: white;"><i class="fas fa-search"></i></button>
+                    </form>
+                </li>
+            </ul> 
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item me-2">
-                    <a href="" class="btn" style=" color: #F5DB00;"><i class="fa-solid fa-cart-shopping"></i></a>
+                    <a href="{{ route('carrinho.index') }}" class="btn" style=" color: #F5DB00;"><i class="fa-solid fa-cart-shopping"></i></a>
                 </li>
                 @auth
                 <li class="nav-item">
-                    <a href="" class="btn btn-success me-2">Perfil</a>
+                    <a href="" class="btn" style="background-color: white; color: #9B349D;">Perfil</a>
+                </li>
+                <li class="nav-item">
+                    <form action="{{ route('logout') }}" method="POST">
+                        @csrf
+                        <button type="submit" class="btn btn-outline ms-2" style="color:white;">Logout</button>
+                    </form>
                 </li>
                 @endauth
                 @guest

@@ -26,15 +26,18 @@
         @foreach ($produtos as $produto)
         <div class="col-md-4">
             <div class="card mb-3">
-                <img src="/img/produtos/{{ $produto-> imagem }}" class="card-img-top" alt="Produto 3">
+                <img src="/img/produtos/{{ $produto->imagem }}" class="card-img-top" alt="Produto 3">
                 <div class="card-body">
                     <h5 class="card-title">{{ $produto->nome }} </h5>
                     <p class="card-text">{{ $produto->descricao }}</p>
                     <p class="card-text"> {{ $produto->categoria }}</p>
                     <p class="card-text text-center" style="font-weight: bold;">R$ {{ $produto->preco }}</p>
                     <div class="text-center">
-                        <a href="#" class="btn" style="background-color: #F5DB00; color: white; font-family: bold;"><i class="fa-solid fa-cart-shopping"></i></a>
-                        <a href="#" class="btn" style="background-color: #F5DB00; color: white; font-family: bold;"> <i class="fa-solid fa-eye"></i></a>
+                        <form action="{{ route('carrinho.store', $produto->id) }}">
+                            <input class="input-form col-lg-2" name="quantidade" id="quantidade" type="text">
+                            <button href="" class="btn" type="submit" style="background-color: #F5DB00; color: white; font-family: bold;"><i class="fa-solid fa-cart-shopping"></i></button>
+                            <button href="#" class="btn" style="background-color: #F5DB00; color: white; font-family: bold;"> <i class="fa-solid fa-eye"></i></button>
+                        </form>
                     </div>
                 </div>
             </div>

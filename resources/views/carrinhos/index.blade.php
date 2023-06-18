@@ -12,36 +12,52 @@
                     <th scope="col">Preço</th>
                     <th scope="col">Quantidade</th>
                     <th scope="col">Total</th>
+                    <th scope="col">Ações</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <td>Produto 1</td>
-                    <td>R$ 49,90</td>
-                    <td>2</td>
-                    <td>R$ 99,80</td>
-                </tr>
-                <tr>
-                    <td>Produto 2</td>
-                    <td>R$ 29,90</td>
-                    <td>1</td>
-                    <td>R$ 29,90</td>
-                </tr>
-                <tr>
-                    <td>Produto 3</td>
-                    <td>R$ 39,90</td>
-                    <td>3</td>
-                    <td>R$ 119,70</td>
-                </tr>
-            </tbody>
+            @php $total = 0; @endphp
+            @if (isset ($produtosCarrinho))
+                @if ($produtosCarrinho->count() == 0)
+                <tbody>
+                    <tr>
+                        <td colspan="4" class="text-center">Não há produtos no carrinho</td>
+                    </tr>
+                </tbody>
+                @else
+                    @foreach ($produtosCarrinho as $produtoCarrinho)
+                    <tbody>
+                        <tr>
+                            <td>{{ $produtoCarrinho->nome }}</td>
+                            <td>R$ {{ $produtoCarrinho->preco }}</td>
+                            <td>{{ $produtoCarrinho->quantidade }}</td>
+                            <td>R$ {{ $produtoCarrinho->total }}</td>
+                            <td>
+                                <form action="{{ route('carrinho.destroy', $produtoCarrinho->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn" style="color: #9B349D;"><i class="fa-solid fa-trash"></i></button>
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                    @php
+                        $total += $produtoCarrinho->total;
+                    @endphp
+                    @endforeach
+                @endif
+            @endif
         </table>
         <div class="row">
-            <h4>Total: R$ 249,40</h4>
+            <h4>Total: R$ {{ $total }}</h4>
             <div class="col-lg-2 mt-3">
-                <button class="btn" style="background-color: #9B349D; color: white;">Continuar Comprando</button>
+                <a href="{{ route('home')}}" class="btn" style="background-color: #9B349D; color: white;">Continuar Comprando</a>
             </div>
             <div class="col-lg-2 mt-3">
-                <button class="btn" style="color: #9B349D;">Limpar Carrinho</button>
+                <form action="{{ route('carrinho.destroyAll') }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn" style="color: #9B349D;">Limpar Carrinho</button>
+                </form>
             </div>
             <div class="col-lg-8 text-end">
                 <button class="btn mt-3" style="background-color: #F5DB00; color: white;">Finalizar Compra</button>

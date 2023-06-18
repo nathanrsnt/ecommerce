@@ -69,13 +69,10 @@ Route::put('/pedidos/{id}', [PedidosController::class, 'update'])->name('pedidos
 Route::delete('/pedidos/{id}', [PedidosController::class, 'destroy'])->name('pedidos.destroy');
 
 // Rotas para carrinho
-Route::get('/carrinhos', [CarrinhosController::class, 'index'])->name('carrinhos.index');
-Route::get('/carrinhos/create', [CarrinhosController::class, 'create'])->name('carrinhos.create');
-Route::post('/carrinhos', [CarrinhosController::class, 'store'])->name('carrinhos.store');
-Route::get('/carrinhos/{id}', [CarrinhosController::class, 'show'])->name('carrinhos.show');
-Route::get('/carrinhos/{id}/edit', [CarrinhosController::class, 'edit'])->name('carrinhos.edit');
-Route::put('/carrinhos/{id}', [CarrinhosController::class, 'update'])->name('carrinhos.update');
-Route::delete('/carrinhos/{id}', [CarrinhosController::class, 'destroy'])->name('carrinhos.destroy');
+Route::get('/carrinho', [CarrinhosController::class, 'index'])->name('carrinho.index');
+Route::get('/carrinho/store/{id}', [CarrinhosController::class, 'store'])->name('carrinho.store');
+Route::delete('/carrinho/{id}', [CarrinhosController::class, 'destroy'])->name('carrinho.destroy');
+Route::delete('/carrinho', [CarrinhosController::class, 'destroyAll'])->name('carrinho.destroyAll');
 
 // Rota de autenticação
 Route::middleware([
@@ -84,6 +81,6 @@ Route::middleware([
     'verified'
 ])->group(function () {
     Route::get('/dashboard', function () {
-        return view('dashboard');
+        return view('home');
     })->name('dashboard');
 });
