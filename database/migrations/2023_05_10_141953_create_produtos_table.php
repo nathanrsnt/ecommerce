@@ -19,6 +19,7 @@ return new class extends Migration
             $table->decimal('preco', 8, 2);
             $table->integer('quantidade');
             $table->string('imagem');
+            $table->string('usuario');
             $table->timestamps();
         });
     }

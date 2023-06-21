@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('endereco');
             $table->string('telefone');
             $table->string('email');
+            $table->string('usuario');
             $table->timestamps();
         });
     }

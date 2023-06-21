@@ -4,16 +4,21 @@ namespace App\Http\Controllers;
 
 use App\Models\Produto;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Categoria;
 
 class ProdutosController extends Controller
 {
     public function index() {
-        $produtos = Produto::all();
+        $user = Auth::user();
+        $produtos = Produto::where('usuario', $user->id)->get();
+
         return view('produtos.index', ['produtos' => $produtos]);
     }
 
     public function create() {
-        return view('produtos.create');
+        $categorias = Categoria::all();
+        return view('produtos.create', ['categorias' => $categorias]);
     }
 
     public function show($id) {
@@ -40,6 +45,7 @@ class ProdutosController extends Controller
         $produto->preco = $request->preco;
         $produto->quantidade = $request->quantidade;
         $produto->imagem = $request->imagem;
+        $produto->usuario = Auth::user()->id;
 
         if ($request->hasfile('imagem') && $request->file('imagem')->isValid()) {
             $requestImagem = $request->imagem;
@@ -84,8 +90,16 @@ class ProdutosController extends Controller
         return redirect()->route('produtos.index')->with('msg', 'Produto excluído com sucesso!');
     }
 
-    public function search()
-    {
+    public function search() {
+        $search = request('search');
+        if($search){
+            $produto = Produto::where([
+                ['nome', 'like', '%'.$search.'%']
+            ])->get();
+        } else{
+            $produto = Produto::all();
+        }
         
+        return view('home', ['produtos' => $produto, 'search' => $search]);
     }
 }

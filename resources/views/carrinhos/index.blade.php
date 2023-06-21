@@ -60,7 +60,11 @@
                 </form>
             </div>
             <div class="col-lg-8 text-end">
-                <button class="btn mt-3" style="background-color: #F5DB00; color: white;">Finalizar Compra</button>
+                <form action="{{ route('pedidos.store') }}" method="post">
+                    @csrf
+                    <input type="hidden" name="total" value="{{ $total }}">
+                    <button type="submit" class="btn mt-3" style="background-color: #F5DB00; color: white;">Finalizar Compra</button>
+                </form>
             </div>
         </div>
     </div>

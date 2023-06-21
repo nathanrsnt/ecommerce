@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Fornecedor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class FornecedoresController extends Controller
 {
@@ -42,6 +43,7 @@ class FornecedoresController extends Controller
         $fornecedor->endereco = $request->endereco;
         $fornecedor->telefone = $request->telefone;
         $fornecedor->email = $request->email;
+        $fornecedor->usuario = Auth::user()->id;
 
         $fornecedor->save();
 

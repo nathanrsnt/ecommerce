@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Carrinho;
 use App\Models\Produto;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CarrinhosController extends Controller
 {
@@ -27,6 +28,7 @@ class CarrinhosController extends Controller
         $carrinho->descricao = $produtosCarrinho->descricao;
         $carrinho->categoria = $produtosCarrinho->categoria;
         $carrinho->preco = $produtosCarrinho->preco;
+        $carrinho->usuario = Auth::user()->id;
 
         $carrinho->quantidade = $quantidade;
         //total do produto sendo adicionado ao carrinho

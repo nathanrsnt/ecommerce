@@ -6,6 +6,8 @@ use App\Http\Controllers\FornecedoresController;
 use App\Http\Controllers\PedidosController;
 use App\Http\Controllers\CarrinhosController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\CategoriasController;
+use App\Http\Controllers\RelatoriosController;
 use Illuminate\Routing\RouteUri;
 
 /*
@@ -19,6 +21,23 @@ use Illuminate\Routing\RouteUri;
 |
 */
 
+// Rota de autenticação
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified'
+])->group(function () {
+    Route::get('/dashboard', function () {
+        return redirect('/');
+    })->name('dashboard');
+});
+
+// Rota para perfil jetstream
+Route::get('/user/profile', function () {
+    return view('profile.show');
+})->name('profile.show');
+
+
 // Rota para a página inicial
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -30,6 +49,7 @@ Route::get('/produtos/{id}', [ProdutosController::class, 'show'])->name('produto
 Route::get('/produtos/{id}/edit', [ProdutosController::class, 'edit'])->name('produtos.edit');
 Route::put('/produtos/{id}', [ProdutosController::class, 'update'])->name('produtos.update');
 Route::delete('/produtos/{id}', [ProdutosController::class, 'destroy'])->name('produtos.destroy');
+Route::post('/produtos/search', [ProdutosController::class, 'search'])->name('produtos.search');
 
 // Rotas para o CRUD de Pedidos
 Route::get('/pedidos', [PedidosController::class, 'index'])->name('pedidos.index');
@@ -59,28 +79,23 @@ Route::get('/fornecedores/{id}', [FornecedoresController::class, 'show'])->name(
 Route::get('/vendedores', [VendedoresController::class, 'index'])->name('vendedores.index');
 Route::get('/vendedores/{id}', [VendedoresController::class, 'show'])->name('vendedores.show');
 
-// Rotas para pedidos
-Route::get('/pedidos', [PedidosController::class, 'index'])->name('pedidos.index');
-Route::get('/pedidos/create', [PedidosController::class, 'create'])->name('pedidos.create');
-Route::post('/pedidos', [PedidosController::class, 'store'])->name('pedidos.store');
-Route::get('/pedidos/{id}', [PedidosController::class, 'show'])->name('pedidos.show');
-Route::get('/pedidos/{id}/edit', [PedidosController::class, 'edit'])->name('pedidos.edit');
-Route::put('/pedidos/{id}', [PedidosController::class, 'update'])->name('pedidos.update');
-Route::delete('/pedidos/{id}', [PedidosController::class, 'destroy'])->name('pedidos.destroy');
-
 // Rotas para carrinho
 Route::get('/carrinho', [CarrinhosController::class, 'index'])->name('carrinho.index');
 Route::get('/carrinho/store/{id}', [CarrinhosController::class, 'store'])->name('carrinho.store');
 Route::delete('/carrinho/{id}', [CarrinhosController::class, 'destroy'])->name('carrinho.destroy');
 Route::delete('/carrinho', [CarrinhosController::class, 'destroyAll'])->name('carrinho.destroyAll');
 
-// Rota de autenticação
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified'
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('home');
-    })->name('dashboard');
-});
+// Rotas para pedidos
+Route::get('/pedidos', [PedidosController::class, 'index'])->name('pedidos.index');
+Route::post('/pedidos', [PedidosController::class, 'store'])->name('pedidos.store');
+Route::get('/pedidos/{id}', [PedidosController::class, 'show'])->name('pedidos.show');
+Route::delete('/pedidos/{id}', [PedidosController::class, 'destroy'])->name('pedidos.destroy');
+
+// Relatorios
+Route::get('/relatorios/categoria', [RelatoriosController::class, 'produtosCategoria'])->name('relatorio.categoria');
+
+// Categorias
+Route::get('/categorias', [CategoriasController::class, 'index'])->name('categorias.index');
+Route::get('/categorias/create', [CategoriasController::class, 'create'])->name('categorias.create');
+Route::post('/categorias', [CategoriasController::class, 'store'])->name('categorias.store');
+Route::delete('/categorias/{id}', [CategoriasController::class, 'destroy'])->name('categorias.destroy');

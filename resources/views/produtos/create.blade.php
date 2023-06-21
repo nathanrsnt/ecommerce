@@ -16,8 +16,13 @@
                                 <input class="form-control" type="text" name="nome" id="nome" placeholder="Nome do Produto">
                                 <label for=""></label>
                                 <input class="form-control" type="text" name="descricao" id="descricao" placeholder="Descrição do Produto">
-                                <label for=""></label>
-                                <input class="form-control" type="text" name="categoria" id="categoria" placeholder="Categoria do Produto">
+                                <label for="categoria"></label>
+                                <select class="form-control" id="categoria" name="categoria">
+                                    <option value="">Selecione uma categoria...</option>
+                                    @foreach ($categorias as $categoria)
+                                        <option value="{{ $categoria->id }}">{{ $categoria->nome }}</option>
+                                    @endforeach
+                                </select>
                                 <label for=""></label>
                                 <input class="form-control" type="text" name="preco" id="preco" placeholder="Preço">
                                 <label for=""></label>

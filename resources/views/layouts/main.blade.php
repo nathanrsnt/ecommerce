@@ -29,15 +29,16 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{{route('home') }}">Home</a>
                 </li>
+                @auth
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownVendas" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Vendas
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownVendas">
                         <li><a class="dropdown-item" href="#">Minhas Venda</a></li>
-                        <li><a class="dropdown-item" href="#">Compradores</a></li>
                         <li><a class="dropdown-item" href="{{ route('produtos.index') }}">Produtos</a></li>
                         <li><a class="dropdown-item" href="{{ route('fornecedores.index') }}">Fornecedores</a></li>
+                        <li><a class="dropdown-item" href="{{ route('categorias.index') }}">Categoria</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -53,16 +54,16 @@
                         Relatórios
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownVendas">
-                        <li><a class="dropdown-item" href="#">Relatório de Vendas</a></li>
-                        <li><a class="dropdown-item" href="#">Relatório de Compras</a></li>
-                        <li><a class="dropdown-item" href="#">Relatório de Estoque</a></li>
+                        <li><a class="dropdown-item" href="{{ route('relatorio.categoria') }}">Produtos por categoria</a></li>
                     </ul>
                 </li>
+                @endauth
             </ul>
             <ul class="navbar-nav me-auto">
                 <li class="nav-item me-auto pesquisa-input" id="navbarSupportedContent">
-                    <form class="d-flex" action="/search" method="GET">
-                        <input type="text" class="form-control col-lg-12" placeholder="Pesquisar" name="query">
+                    <form class="d-flex" action="{{ route('produtos.search') }}" method="post">
+                        @csrf
+                        <input type="text" class="form-control col-lg-12" placeholder="Pesquisar" id="search" name="search">
                         <button class="btn" type="submit" style="color: white;"><i class="fas fa-search"></i></button>
                     </form>
                 </li>
@@ -73,7 +74,7 @@
                 </li>
                 @auth
                 <li class="nav-item">
-                    <a href="" class="btn" style="background-color: white; color: #9B349D;">Perfil</a>
+                    <a href="{{ route('profile.show')}}" class="btn" style="background-color: white; color: #9B349D;">Perfil</a>
                 </li>
                 <li class="nav-item">
                     <form action="{{ route('logout') }}" method="POST">
