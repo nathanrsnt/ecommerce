@@ -11,6 +11,12 @@
             <div class="col-lg-6 text-end">
                 <a href="{{ route('produtos.create') }}" class="btn mt-2 mb-2" style="background-color: #F5DB00; color: white; font-weight: bold;"><i class="fa-solid fa-plus"></i></a>
             </div>
+            @if (session('msg'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>{{ session('msg') }}</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
             @if($produtos->count() == 0)
             <h2 class="text-center mt-5" style="color: black; font-weight: bold">Você ainda não possui produtos cadastrados</h2>
             @else
