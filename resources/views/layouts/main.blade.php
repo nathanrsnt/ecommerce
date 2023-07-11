@@ -15,6 +15,10 @@
         .pesquisa-input {
             width: 1000px;
         }
+
+        body {
+            background-color: #F8F6F6;
+        }
     </style>
 </head>
   <body>
@@ -63,7 +67,7 @@
                 <li class="nav-item me-auto pesquisa-input" id="navbarSupportedContent">
                     <form class="d-flex" action="{{ route('produtos.search') }}" method="post">
                         @csrf
-                        <input type="text" class="form-control col-lg-12" placeholder="Pesquisar" id="search" name="search">
+                        <input type="text" class="form-control col-lg-12" placeholder="Pesquisar" id="search" name="search" style="background-color: #F8F6F6;">
                         <button class="btn" type="submit" style="color: white;"><i class="fas fa-search"></i></button>
                     </form>
                 </li>

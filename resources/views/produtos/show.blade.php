@@ -54,12 +54,14 @@
                         </table>
                         <div class="text-end">
                             <a class="button btn" href="{{ route('produtos.store') }}">Voltar</a>
-                            <a class="button btn" style="background-color: #9B349D ; color: white" href="{{ route('produtos.edit', $produto->id)}}">Editar</a>
-                            <form action="{{ route('produtos.destroy', $produto->id) }}" method="POST" class="d-inline-block">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i></button>
-                            </form>
+                            @if(Auth::user()->id == $produto->usuario)
+                                <a class="button btn" style="background-color: #9B349D ; color: white" href="{{ route('produtos.edit', $produto->id)}}">Editar</a>
+                                <form action="{{ route('produtos.destroy', $produto->id) }}" method="POST" class="d-inline-block">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                                </form>
+                            @endif
                         </div>
                     </div>
                 </div> 
