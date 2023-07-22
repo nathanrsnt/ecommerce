@@ -21,16 +21,33 @@ class CarrinhosController extends Controller
     public function store($idProduto) {
         $carrinho = new Carrinho();
         $produtosCarrinho = Produto::find($idProduto);
-        $quantidade = request('quantidade');
-        
-        $carrinho->produto_id = $produtosCarrinho->id;
-        $carrinho->nome = $produtosCarrinho->nome;
-        $carrinho->descricao = $produtosCarrinho->descricao;
-        $carrinho->categoria = $produtosCarrinho->categoria;
-        $carrinho->preco = $produtosCarrinho->preco;
-        $carrinho->usuario = Auth::user()->id;
+        $quantidade = 1;
 
-        $carrinho->quantidade = $quantidade;
+        //Procura o produto no carrinho
+        $carrinhoFind = Carrinho::all();
+        
+        if ($carrinhoFind) {
+            foreach ($carrinhoFind as $c) { 
+                if ($c->produto_id = $idProduto && $c->usuario = Auth::user()->id) {
+                    $c->quantidade = $c->quantidade + 1;
+                    $c->produto_id = $produtosCarrinho->id;
+                    $c->nome = $produtosCarrinho->nome;
+                    $c->descricao = $produtosCarrinho->descricao;
+                    $c->categoria = $produtosCarrinho->categoria;
+                    $c->preco = $produtosCarrinho->preco;
+                    $c->usuario = Auth::user()->id;
+                }
+            }
+        } else { 
+            $carrinho->produto_id = $produtosCarrinho->id;
+            $carrinho->nome = $produtosCarrinho->nome;
+            $carrinho->descricao = $produtosCarrinho->descricao;
+            $carrinho->categoria = $produtosCarrinho->categoria;
+            $carrinho->preco = $produtosCarrinho->preco;
+            $carrinho->usuario = Auth::user()->id;
+            $carrinho->quantidade = $quantidade;
+        }
+
         //total do produto sendo adicionado ao carrinho
         $carrinho->total = $produtosCarrinho->preco * $quantidade;
 
@@ -51,5 +68,14 @@ class CarrinhosController extends Controller
         $produtoCarrinho->each->delete();
 
         return redirect()->route('carrinho.index')->with('success', 'Todos os produtos foram removidos do carrinho com sucesso!');
+    }
+
+    public function verificaCarrinho($id) {
+        $carrinho = Carrinho::FindOrFail($id);
+
+
+
+
+
     }
 }

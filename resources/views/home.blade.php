@@ -36,8 +36,8 @@
                         <div class="text-center">
                             <form action="{{ route('carrinho.store', $produto->id) }}">
                                 @auth
-                                <input class="input-form col-lg-2" name="quantidade" id="quantidade" type="text">
                                 <button href="" class="btn" type="submit" style="background-color: #F5DB00; color: white; font-family: bold;"><i class="fa-solid fa-cart-shopping"></i></button>
+                                <a href="{{ route('produtos.show', $produto->id) }}" class="btn" style="background-color: #F5DB00; color: white; font-family: bold;"> <i class="fa-solid fa-heart"></i></a>
                                 @endauth
                                 <a href="{{ route('produtos.show', $produto->id) }}" class="btn" style="background-color: #F5DB00; color: white; font-family: bold;"> <i class="fa-solid fa-eye"></i></a>
                             </form>
